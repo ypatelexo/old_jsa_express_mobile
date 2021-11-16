@@ -70,7 +70,8 @@ export default class SelectDate extends Component {
       <View style={{flex: 1}}>
         <CalendarList
           maxDate={new Date()}
-         selected={this.state.date}
+          
+         
         //   markedDates={this.state.date}
           // Callback which gets executed when visible months change in scroll view. Default = undefined
           // onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}

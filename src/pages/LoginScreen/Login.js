@@ -78,6 +78,8 @@ export class Login extends Component {
   userLogin() {
 
 
+    //alert("hi")
+    //return;
     const formdata = new FormData(this);
 
     formdata.append('loginDetails', JSON.stringify({
@@ -85,14 +87,13 @@ export class Login extends Component {
       password: this.state.password
     }));
 
-    console.log("formdata", formdata);
+    console.log("formdata", formdata, SIGN_IN_URL);
 
     this.setState({ loading: true });
     fetch(`${SIGN_IN_URL}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-
       },
       body: formdata,
     }, 20000)

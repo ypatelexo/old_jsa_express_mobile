@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  
   ScrollView,
   TextInput,
   KeyboardAvoidingView,
@@ -107,10 +108,24 @@ export class EditPage extends Component {
   };
 
   updateRecords = navigation => {
-    this.setState({loading: true});
-
-    console.log('update', this.state.Dolly);
+   
     const {params} = navigation.state;
+
+    if(this.state.trailer2 !=""){
+      if(this.state.Dolly == ""){        
+          showMessage({
+            message: 'Please enter dolly no.',
+            type: 'info',
+            animated: 'true',
+            floating: 'true',
+            icon: 'info',
+          });
+          return;
+      }      
+    } 
+
+    this.setState({loading: true});   
+
     const formdata = new FormData(this);
 
     formdata.append(

@@ -55,11 +55,29 @@ export class FilterScreen extends Component {
     ],
     calendarstartFlag: false,
     calendraEndFlag: false,
-    startDate: '',
-    endDate: '',
+    startDate: "",
+    endDate: "",
     trailerNumber: '',
     transid: '',
   };
+
+  componentDidMount() {
+    const date = this.getTodaysDate();
+
+    console.log('date', date);
+    
+    this.setState({startDate:date, endDate: date})
+  }
+
+  getTodaysDate(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear(); 
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+  }
+
 
   setSelectedDriver = Tdriver => {
     this.setState({
@@ -96,19 +114,28 @@ export class FilterScreen extends Component {
   };
   renderView = () => {
     // console.log("this.state", this.state)
+
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+
     var start =
       this.state.startDate != ''
         ? `${this.state.startDate.split('-')[1]}/${
             this.state.startDate.split('-')[2]
           }/${this.state.startDate.split('-')[0]}`
-        : '';
+        : today;
 
     var end =
       this.state.endDate != ''
         ? `${this.state.endDate.split('-')[1]}/${
             this.state.endDate.split('-')[2]
           }/${this.state.endDate.split('-')[0]}`
-        : '';
+        : today;
     return (
       <ImageBackground
         style={styles.cointainerStyle}
@@ -397,6 +424,10 @@ export class FilterScreen extends Component {
       const formdata = new FormData();
 
       let sdate = this.state.startDate.split('-');
+
+       
+
+
       let edate = this.state.endDate.split('-');
 
       formdata.append(

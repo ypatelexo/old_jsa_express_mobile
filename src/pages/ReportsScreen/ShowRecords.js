@@ -34,8 +34,7 @@ export class NextIconComp extends Component {
               fontFamily:THEME_FONT
             }}>
             EMAIL{' '}
-          </Text>
-         
+          </Text>         
         </TouchableOpacity>
       </View>
     );
@@ -228,7 +227,7 @@ class ShowRecords extends Component {
         </View>
 
         <View style={{flexDirection: 'column'}}>
-          <View style={[styles.itemStyle, {width: width/5.5}]}>
+          <View style={[styles.itemStyle, {width: width/4.5}]}>
             <Text style={styles.listTextStyle}>
               {(item.macroBody_qhosTrailer1=='NONE')
               ?
@@ -240,7 +239,7 @@ class ShowRecords extends Component {
         </View>
 
         <View style={{flexDirection: 'column'}}>
-          <View style={[styles.itemStyle, {width: width/5.5}]}>
+          <View style={[styles.itemStyle, {width: width/4.5}]}>
             <Text style={styles.listTextStyle}>
               {(item.macroBody_qhosTrailer2=='NONE')
               ?
@@ -252,7 +251,7 @@ class ShowRecords extends Component {
         </View>
 
         <View style={{flexDirection: 'column'}}>
-          <View style={[styles.itemStyle, {width: width/5.5}]}>
+          <View style={[styles.itemStyle, {width: width/4.5}]}>
             <Text style={styles.listTextStyle}>
               {(item.macroBody_qhosTrailer3=='NONE')
               ?
