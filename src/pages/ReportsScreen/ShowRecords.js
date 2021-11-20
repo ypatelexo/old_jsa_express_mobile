@@ -51,6 +51,12 @@ class ShowRecords extends Component {
     orientation: '',
     height1: 0,
     width1: 0,
+    tr1MaxChar: 10,
+    tr1Width: 4,
+    tr2MaxChar: 10,
+    tr2Width: 4,
+    tr3MaxChar: 10,
+    tr3Width: 4,
   };
   constructor(props) {
     super(props);
@@ -65,10 +71,67 @@ class ShowRecords extends Component {
     //fetch All driver
   }
 
+  checkMaxChar(number, type="tr3") {
+    if (type == 'tr1') {
+      if (number.length > this.state.tr1MaxChar) {
+        this.setState({tr1MaxChar: number});
+      }
+    }else if(type == 'tr2'){
+      if (number.length > this.state.tr2MaxChar) {
+        this.setState({tr2MaxChar: number});
+      }
+    }else{
+      if (number.length > this.state.tr3MaxChar) {
+        this.setState({tr3MaxChar: number});
+      }
+    }
+    
+    // if(this.state.tr1MaxChar >= 10 && this.state.tr1MaxChar <= 15){
+    //   this.setState({tr1Width: 3.8});
+    // }else if(this.state.tr1MaxChar >= 16 && this.state.tr1MaxChar <= 20){
+    //   this.setState({tr1Width: 3.5});
+    // }else if(this.state.tr1MaxChar >= 21 && this.state.tr1MaxChar <= 25){
+    //   this.setState({tr1Width: 3.2});
+    // }else if(this.state.tr1MaxChar > 30 ){
+    //   this.setState({tr1Width: 3});
+    // }
+
+
+    // if(this.state.tr2MaxChar >= 10 && this.state.tr2MaxChar <= 15){
+    //   this.setState({tr2Width: 3.8});
+    // }else if(this.state.tr2MaxChar >= 16 && this.state.tr2MaxChar <= 20){
+    //   this.setState({tr2Width: 3.5});
+    // }else if(this.state.tr2MaxChar >= 21 && this.state.tr2MaxChar <= 25){
+    //   this.setState({tr2Width: 3.2});
+    // }else if(this.state.tr2MaxChar > 30 ){
+    //   this.setState({tr2Width: 3});
+    // }
+
+
+    // if(this.state.tr3MaxChar >= 10 && this.state.tr3MaxChar <= 15){
+    //   this.setState({tr3Width: 3.8});
+    // }else if(this.state.tr3MaxChar >= 16 && this.state.tr3MaxChar <= 20){
+    //   this.setState({tr3Width: 3.5});
+    // }else if(this.state.tr3MaxChar >= 21 && this.state.tr3MaxChar <= 25){
+    //   this.setState({tr3Width: 3.2});
+    // }else if(this.state.tr3MaxChar > 30 ){
+    //   this.setState({tr3Width: 3});
+    // }
+   
+  }
+
   componentDidMount() {
     this.listener = this.scrollPosition.addListener(position => {
       this.headerScrollView.scrollTo({x: position.value, animated: false});
     });
+     const data = this.props.allrecords;
+     data.forEach(element => {
+      this.checkMaxChar(element.macroBody_qhosTrailer1, "tr1") 
+      this.checkMaxChar(element.macroBody_qhosTrailer2, "tr2") 
+      this.checkMaxChar(element.macroBody_qhosTrailer3, "tr3") 
+    });
+
+    
   }
   componentWillUnmount() {}
   componentWillReceiveProps(nextProps) {
@@ -174,9 +237,45 @@ class ShowRecords extends Component {
     :
      'white';
 
-
-
     
+
+     let tr1Width = 4
+     let tr2Width = 4
+     let tr3Width = 4
+
+     
+    
+    if(this.state.tr1MaxChar >= 10 && this.state.tr1MaxChar <= 15){
+      tr1Width = 3.8;
+    }else if(this.state.tr1MaxChar >= 16 && this.state.tr1MaxChar <= 20){
+      tr1Width = 3.0;
+    }else if(this.state.tr1MaxChar >= 21 && this.state.tr1MaxChar <= 25){
+      tr1Width = 2.2;
+    }else if(this.state.tr1MaxChar >= 31){
+      tr1Width = 1.6;
+    }
+
+    if(this.state.tr2MaxChar >= 10 && this.state.tr2MaxChar <= 15){
+      tr2Width = 3.8;
+    }else if(this.state.tr2MaxChar >= 16 && this.state.tr2MaxChar <= 20){
+      tr2Width = 3.0;
+    }else if(this.state.tr2MaxChar >= 21 && this.state.tr2MaxChar <= 25){
+      tr2Width = 2.2;
+    }else if(this.state.tr2MaxChar >= 31 ){
+      tr2Width = 1.6;
+    }
+
+    if(this.state.tr3MaxChar >= 10 && this.state.tr3MaxChar <= 15){
+      tr3Width = 3.8;
+    }else if(this.state.tr3MaxChar >= 16 && this.state.tr3MaxChar <= 20){
+      tr3Width = 3.0;
+    }else if(this.state.tr3MaxChar >= 21 && this.state.tr3MaxChar <= 25){
+      tr3Width = 2.2;
+    }else if(this.state.tr3MaxChar >= 31 ){
+      tr3Width = 1.6;
+    } 
+    
+
 
     return (
       <View style={{flexDirection: 'row', backgroundColor: rowColor}}>
@@ -227,31 +326,31 @@ class ShowRecords extends Component {
         </View>
 
         <View style={{flexDirection: 'column'}}>
-          <View style={[styles.itemStyle, {width: width/4.5}]}>
+          <View style={[styles.itemStyle, {width: width / tr1Width}]}>
             <Text style={styles.listTextStyle}>
               {(item.macroBody_qhosTrailer1=='NONE')
               ?
               '-'
               :
-              item.macroBody_qhosTrailer1}
+              item.macroBody_qhosTrailer1} 
             </Text>
           </View>
         </View>
 
-        <View style={{flexDirection: 'column'}}>
-          <View style={[styles.itemStyle, {width: width/4.5}]}>
+        <View style={{flexDirection: 'column', flex: 1, flexWrap: 'wrap'}}>
+          <View style={[styles.itemStyle, {width: width / tr2Width} ]}>
             <Text style={styles.listTextStyle}>
               {(item.macroBody_qhosTrailer2=='NONE')
               ?
               '-'
               :
-              item.macroBody_qhosTrailer2}
+              item.macroBody_qhosTrailer2} 
             </Text>
           </View>
         </View>
 
         <View style={{flexDirection: 'column'}}>
-          <View style={[styles.itemStyle, {width: width/4.5}]}>
+          <View style={[styles.itemStyle, {width: width / tr3Width}]}>
             <Text style={styles.listTextStyle}>
               {(item.macroBody_qhosTrailer3=='NONE')
               ?
@@ -306,6 +405,48 @@ class ShowRecords extends Component {
     return item.render;
   };
   renderHeader = () => {
+
+    if(this.state.tr1MaxChar >= 10 && this.state.tr1MaxChar <= 15){
+      tr1Width = 3.8;
+    }else if(this.state.tr1MaxChar >= 16 && this.state.tr1MaxChar <= 20){
+      tr1Width = 3.0;
+    }else if(this.state.tr1MaxChar >= 21 && this.state.tr1MaxChar <= 25){
+      tr1Width = 2.2;
+    }else if(this.state.tr1MaxChar >= 31){
+      tr1Width = 1.6;
+    }
+
+    if(this.state.tr2MaxChar >= 10 && this.state.tr2MaxChar <= 15){
+      tr2Width = 3.8;
+    }else if(this.state.tr2MaxChar >= 16 && this.state.tr2MaxChar <= 20){
+      tr2Width = 3.0;
+    }else if(this.state.tr2MaxChar >= 21 && this.state.tr2MaxChar <= 25){
+      tr2Width = 2.2;
+    }else if(this.state.tr2MaxChar >= 31 ){
+      tr2Width = 1.6;
+    }
+
+    if(this.state.tr3MaxChar >= 10 && this.state.tr3MaxChar <= 15){
+      tr3Width = 3.8;
+    }else if(this.state.tr3MaxChar >= 16 && this.state.tr3MaxChar <= 20){
+      tr3Width = 3.0;
+    }else if(this.state.tr3MaxChar >= 21 && this.state.tr3MaxChar <= 25){
+      tr3Width = 2.2;
+    }else if(this.state.tr3MaxChar >= 31 ){
+      tr3Width = 1.6;
+    } 
+    
+
+
+
+
+
+
+
+
+
+
+
     return (
       <View style={{flexDirection: 'row'}}>
         <View style={{flexDirection: 'row', width:width/3.8}}>
@@ -349,15 +490,15 @@ class ShowRecords extends Component {
               <Text style={styles.itemHeadingTextStyle}>Driver1</Text>
             </View>
 
-            <View style={[styles.itemStyle, {width: width/5.5}]}>
+            <View style={[styles.itemStyle, {width: width/tr1Width}]}>
               <Text style={styles.itemHeadingTextStyle}>Trailer1</Text>
             </View>
 
-            <View style={[styles.itemStyle, {width: width/5.5}]}>
+            <View style={[styles.itemStyle, {width: width/tr2Width}]}>
               <Text style={styles.itemHeadingTextStyle}>Trailer2</Text>
             </View>
 
-            <View style={[styles.itemStyle, {width: width/5.5}]}>
+            <View style={[styles.itemStyle, {width: width/tr3Width}]}>
               <Text style={styles.itemHeadingTextStyle}>Dolly</Text>
             </View>
           </ScrollView>

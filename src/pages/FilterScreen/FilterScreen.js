@@ -323,8 +323,8 @@ export class FilterScreen extends Component {
                     vehicle: '',
                     spotFlag: 'all',
 
-                    startDate: '',
-                    endDate: '',
+                    startDate: this.getTodaysDate(),
+                    endDate: this.getTodaysDate(),
                     trailerNumber: '',
                     transid: '',
                   });
